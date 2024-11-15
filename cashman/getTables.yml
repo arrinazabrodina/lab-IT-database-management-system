@@ -1,0 +1,56 @@
+Get tables of database
+---
+parameters:
+  - name: db
+    in: path
+    type: string
+    required: true
+
+definitions:
+  field:
+    type: object
+    properties:
+      name:
+        type: string
+      type:
+        type: string
+  table:
+    type: object
+    properties:
+      name:
+        type: string
+      id:
+        type: number
+      fields:
+        type: array
+        items:
+          $ref: "#definitions/field"
+      rows:
+        type: array
+        items:
+          type: object
+          additionalProperties:
+            type: string
+
+  database:
+    type: object
+    properties:
+      name:
+        type: string
+      id:
+        type: string
+      isSaved:
+        type: boolean
+      tables:
+        type: array
+        items:
+          $ref: "#/definitions/table"
+responses:
+  200:
+    description: A list of tables
+    schema:
+      type: array
+      items:
+        $ref: "#/definitions/table"
+    examples:
+      databases: []

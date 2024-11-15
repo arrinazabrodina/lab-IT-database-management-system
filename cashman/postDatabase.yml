@@ -1,0 +1,53 @@
+Post database
+---
+parameters:
+  - name: name
+    in: query
+    type: string
+    required: true
+
+definitions:
+  field:
+    type: object
+    properties:
+      name:
+        type: string
+      type:
+        type: string
+  table:
+    type: object
+    properties:
+      name:
+        type: string
+      id:
+        type: number
+      fields:
+        type: array
+        items:
+          $ref: "#definitions/field"
+      rows:
+        type: array
+        items:
+          type: object
+          additionalProperties:
+            type: string
+
+  database:
+    type: object
+    properties:
+      name:
+        type: string
+      id:
+        type: string
+      isSaved:
+        type: boolean
+      tables:
+        type: array
+        items:
+          $ref: "#/definitions/table"
+responses:
+  200:
+    description: result
+    schema:
+      type: string
+    examples: "database is created"
